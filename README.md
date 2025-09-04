@@ -98,12 +98,13 @@ BaseUrl: `http://localhost:8090/api`
 
 ## Sample reqest to create a task: (after contarization)
 {
-    "name": "Send Welcome Email",
-    "executionTime": "2025-09-04T19:29:09Z",
-    "webhookUrl": "http://executor-service:8090/api/send-welcome", //executor service name
-    "payload": {
-        "email": "gangawarvishwanath@gmail.com", //mail ll send to this email
-        "template": "welcome"
-    },
-    "recurrence": "NONE"   // available options- HOURLY, DAILY, WEEKLY
+  "name": "Send Welcome Email",
+  "executionTime": "2025-09-04T19:29:09Z",
+  "webhookUrl": "http://executor-service:8090/api/send-welcome", //Executor service name
+  "payload": {
+    "email": "gangawarvishwanath@gmail.com", // mail will send to this mail
+    "template": "welcome"
+  },
+  "recurrence": "NONE"   // options: HOURLY, DAILY, WEEKLY
 }
+
