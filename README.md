@@ -1,4 +1,4 @@
-# Task Automation & Scheduling System (Java Spring Boot + Spring boot Schedulling + MySQL)
+# Task Automation & Scheduling System (Java Spring Boot + Spring boot Scheduling + MySQL)
 
 Two microservices:
 - **scheduler-service** — Accepts tasks, schedules webhooks, manages retries & async polling, persists task metadata.
