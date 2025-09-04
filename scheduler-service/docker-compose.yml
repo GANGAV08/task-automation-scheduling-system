@@ -1,0 +1,73 @@
+version: "3.9"
+services:
+  executor-db:
+    image: mysql:8
+    container_name: executor-db
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: executordb
+    ports:
+      - "3308:3306"
+    networks:
+      - mynet
+    healthcheck:   # ✅ check if MySQL is ready
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-proot"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+
+  executor-service:
+    build: ../executor-service
+    container_name: executor-service
+    depends_on:
+      executor-db:
+        condition: service_healthy   # ✅ wait until DB is healthy
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://executor-db:3306/executordb
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+    ports:
+      - "8090:8090"
+    networks:
+      - mynet
+    healthcheck:   # ✅ Spring Boot actuator health
+      test: ["CMD", "curl", "-f", "http://localhost:8090/actuator/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+
+  scheduler-db:
+    image: mysql:8
+    container_name: scheduler-db
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: schedulerdb
+    ports:
+      - "3307:3306"
+    networks:
+      - mynet
+    healthcheck:   # ✅ check if MySQL is ready
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-proot"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+
+  scheduler-service:
+    build: .
+    container_name: scheduler-service
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://scheduler-db:3306/schedulerdb
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+      EXECUTOR_SERVICE_URL: http://executor-service:8090
+    ports:
+      - "8081:8081"
+    networks:
+      - mynet
+
+networks:
+  mynet:
+    driver: bridge
