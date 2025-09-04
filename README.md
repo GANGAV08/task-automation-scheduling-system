@@ -96,4 +96,14 @@ BaseUrl: `http://localhost:8090/api`
 - Use `application.yml` max retries, polling intervals, etc.
 - APIs are fully documented via OpenAPI UI.
 
-
+## Sample reqest to create a task: (after contarization)
+{
+    "name": "Send Welcome Email",
+    "executionTime": "2025-09-04T19:29:09Z",
+    "webhookUrl": "http://executor-service:8090/api/send-welcome", //executor service name
+    "payload": {
+        "email": "gangawarvishwanath@gmail.com", //mail ll send to this email
+        "template": "welcome"
+    },
+    "recurrence": "NONE"   // available options- HOURLY, DAILY, WEEKLY
+}
