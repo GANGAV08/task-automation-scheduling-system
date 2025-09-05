@@ -84,7 +84,7 @@ BaseUrl: `http://localhost:8090/api`
 - Configuration-driven: max retries, polling interval, recurrence, etc., should reside in application.yml.
 - Use OpenAPI for API docs & testing.
 - For demo, “Send Welcome Email” and “Notify Admin” tasks are implemented with basic email templates. Demo credentials used an my alternate email details for sending (configrable), and the admin email is configurable in the application.
-- Scheduler polling intervals are configurable in the application config file.
+- Scheduler polling and task exexcution interval are configurable in the application config file.
 
 ## Local development (without Docker)
 - Ensure MySql running with matching credentials from `application.yml` files.
@@ -93,7 +93,7 @@ BaseUrl: `http://localhost:8090/api`
 - Run: `java -jar target/*.jar`
 
 ## Notes
-- Use `application.yml` max retries, polling intervals, etc.
+- Use `application.yml` max retries, polling intervals, task execution interval etc.
 - APIs are fully documented via OpenAPI UI.
 
 ## Sample reqest to create a task: (after contarization)
