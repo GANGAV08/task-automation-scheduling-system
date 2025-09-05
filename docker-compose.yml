@@ -48,7 +48,7 @@ services:
       - "3307:3306"
     networks:
       - mynet
-    healthcheck:   # ✅ check if MySQL is ready
+    healthcheck:   # check if MySQL is ready
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-proot"]
       interval: 10s
       timeout: 5s
